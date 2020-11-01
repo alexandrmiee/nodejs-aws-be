@@ -1,0 +1,60 @@
+functions:
+  getProducts:
+    events:
+      - http:
+          path: getProducts
+          method: get
+          documentation:
+            summary: "get all products"
+            description: "get all products"
+            methodResponses:
+              - statusCode: 200
+                responseBody:
+                  description: "A products array"
+                responseModels:
+                  application/json: "Product"
+  getProduct:
+    events:
+      - http:
+          path: getProduct
+          method: get
+          documentation:
+            summary: "get product by id"
+            description: "get product by id"
+            methodResponses:
+              - statusCode: 200
+                responseBody:
+                  description: "A product"
+                responseModels:
+                  application/json: "Product"
+              - statusCode: 404
+                responseBody:
+                  description: "Product not found"
+models:
+  - name: "Product"
+    description: "This is a product"
+    contentType: "application/json"
+    schema:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The product ID.
+        description:
+          type: string
+          description: The product description.
+        title:
+          type: string
+          description: The product title.
+        count:
+          type: number
+          description: The number of products.
+        price:
+          type: number
+          description: The price of product.
+  - name: "Products"
+    description: "Products"
+    contentType: "application/json"
+    schema:
+        type: Array
+        items: Product
