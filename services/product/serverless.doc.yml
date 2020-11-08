@@ -2,7 +2,7 @@ functions:
   getProducts:
     events:
       - http:
-          path: getProducts
+          path: ./src/handlers/getProducts
           method: get
           documentation:
             summary: "get all products"
@@ -16,7 +16,7 @@ functions:
   getProduct:
     events:
       - http:
-          path: getProduct
+          path: ./src/handlers/getProduct
           method: get
           documentation:
             summary: "get product by id"

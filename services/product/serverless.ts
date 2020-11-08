@@ -25,7 +25,9 @@ const serverlessConfiguration: Serverless = {
   custom: {
     webpack: {
       webpackConfig: './webpack.config.js',
-      includeModules: true
+      includeModules: {
+        forceInclude: ['pg']
+      }
     },
     documentation: './serverless.doc.yml',
   },
@@ -42,13 +44,11 @@ const serverlessConfiguration: Serverless = {
     apiGateway: {
       minimumCompressionSize: 1024,
     },
-    environment: {
-      AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
-    },
+    environment,
   },
   functions: {
     getProducts: {
-      handler: 'getProducts.getProducts',
+      handler: './src/handlers/handlers.getProducts',
       events: [
         {
           http: {
@@ -60,12 +60,24 @@ const serverlessConfiguration: Serverless = {
       ],
     },
     getProduct: {
-      handler: 'getProduct.getProduct',
+      handler: './src/handlers/handlers.getProduct',
       events: [
         {
           http: {
             method: 'get',
-            path: 'product/{id}',
+            path: 'products/{id}',
+            cors,
+          },
+        }
+      ],
+    },
+    createProduct: {
+      handler: './src/handlers/handlers.createProduct',
+      events: [
+        {
+          http: {
+            method: 'post',
+            path: 'product',
             cors,
           },
         }
