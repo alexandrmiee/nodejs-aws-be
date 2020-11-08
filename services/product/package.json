@@ -4,15 +4,29 @@
   "description": "Serverless webpack example using Typescript",
   "main": "handler.js",
   "scripts": {
-    "test": "jest --config ./jest.config.js"
+    "test": "jest --config ./jest.config.js",
+    "migration:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate",
+    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
+    "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert",
+    "schema:drop": "ts-node ./node_modules/typeorm/cli.js schema:drop",
+    "schema:sync": "ts-node ./node_modules/typeorm/cli.js schema:sync",
+    "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
+    "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed"
   },
   "dependencies": {
-    "source-map-support": "^0.5.10"
+    "@types/bunyan": "^1.8.6",
+    "bunyan": "^1.8.14",
+    "class-validator": "^0.12.2",
+    "pg": "^8.4.2",
+    "reflect-metadata": "^0.1.10",
+    "source-map-support": "^0.5.10",
+    "typeorm": "0.2.29"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.17",
     "@types/jest": "^26.0.15",
     "@types/node": "^10.12.18",
+    "@types/pg": "^7.14.6",
     "@types/serverless": "^1.72.5",
     "fork-ts-checker-webpack-plugin": "^3.0.1",
     "jest": "^26.6.1",
@@ -21,6 +35,7 @@
     "ts-jest": "^26.4.3",
     "ts-loader": "^5.3.3",
     "ts-node": "^8.10.2",
+    "typeorm-seeding": "^1.6.1",
     "typescript": "^3.2.4",
     "webpack": "^4.29.0",
     "webpack-node-externals": "^1.7.2"

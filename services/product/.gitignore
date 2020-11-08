@@ -1,3 +1,12 @@
+.idea/
+.vscode/
+.serverless/
+serverless.ts
+ormconfig.json
+node_modules/
+build/
+tmp/
+temp/
 # package directories
 node_modules
 jspm_packages
