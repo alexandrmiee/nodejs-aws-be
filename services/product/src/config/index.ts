@@ -1,0 +1,1 @@
+export { dbConnectionConfig } from './dbConnectionConfig';

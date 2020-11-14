@@ -3,7 +3,7 @@ export const productList = [
         "count": 4,
         "description": "Описание 1",
         "id": "7567ec4b-b10c-48c5-9345-fc73c48a80aa",
-        "price": 2.4,
+        "price": 2,
         "title": "Продукт One"
     },
     {
@@ -30,7 +30,7 @@ export const productList = [
     {
         "count": 7,
         "description": "Описание 2",
-        "id": "7567ec4b-b10c-48c5-9345-fc73c48a80a2",
+        "id": "7567ec4b-b10c-48c5-9345-fc73c48a80a6",
         "price": 23,
         "title": "Продукт "
     },
