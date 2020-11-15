@@ -1,0 +1,13 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "deploy": "lerna run deploy --since main",
+    "test": "lerna run test --since main"
+  },
+  "devDependencies": {
+    "aws-lambda": "^1.0.6",
+    "bunyan": "^1.8.14",
+    "lerna": "^3.22.1"
+  }
+}
