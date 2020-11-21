@@ -14,6 +14,18 @@ const cors = {
   ]
 };
 
+const environment = {
+  AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
+  NODE_ENV: 'production',
+  TYPEORM_DATABASE: 'products_db',
+  TYPEORM_HOST: 'ms-product-instance.cwesrixoeljy.eu-west-1.rds.amazonaws.com',
+  TYPEORM_PASSWORD: 'iFvw19Mir1fDvNnrfnxH',
+  TYPEORM_PORT: 5432,
+  TYPEORM_USERNAME: 'postgres',
+  TYPEORM_SYNCHRONIZE: false,
+  TYPEORM_LOGGING: true,
+}
+
 const serverlessConfiguration: Serverless = {
   service: {
     name: 'product',

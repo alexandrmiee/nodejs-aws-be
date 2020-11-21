@@ -4,6 +4,7 @@
   "description": "Serverless webpack example using Typescript",
   "main": "handler.js",
   "scripts": {
+    "deploy": "sls deploy",
     "test": "jest --config ./jest.config.js",
     "migration:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate",
     "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
