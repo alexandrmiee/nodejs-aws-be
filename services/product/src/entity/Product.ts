@@ -6,7 +6,9 @@ import {
     BeforeInsert,
     BeforeUpdate,
 } from "typeorm";
-import { validateOrReject, IsDefined } from 'class-validator';
+import {
+    validateOrReject, IsDefined,
+} from 'class-validator';
 
 import {Stock} from './Stock';
 

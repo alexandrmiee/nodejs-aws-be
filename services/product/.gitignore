@@ -3,6 +3,7 @@
 .serverless/
 serverless.ts
 ormconfig.json
+enviroment.ts
 node_modules/
 build/
 tmp/

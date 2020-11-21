@@ -1,1 +1,1 @@
-export { dbConnectionConfig } from './dbConnectionConfig';
+export {dbConnectionConfig} from './dbConnectionConfig';

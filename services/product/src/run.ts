@@ -21,7 +21,7 @@ import * as config from '../ormconfig.json';
                 "title":"Продукт test",
                 "count": 4,
                 "price": 22,
-            })
+            }),
         } as any,null, () => config);
         console.log({createResult})
     } catch(e) {
