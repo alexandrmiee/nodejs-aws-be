@@ -1,16 +1,23 @@
-import { Connection } from "typeorm";
-import Logger from "bunyan";
 import 'source-map-support/register';
+import {APIGatewayProxyEvent} from 'aws-lambda';
+import {Connection} from "typeorm";
+import Logger from "bunyan";
 
-import { Product, Stock } from '../entity';
-import { createResponse, throwError } from './utils';
-import { RESPONSE_CODES } from './constants';
+import {
+    Product, Stock,
+} from '../entity';
+import {
+    createResponse, throwError,
+} from '../../../../utils';
+import {RESPONSE_CODES} from '../../../../constants';
 
-export const createProduct = async (event, _context, connection: Connection, _logger: Logger) => {
+export const createProduct = async (event: APIGatewayProxyEvent, _context, connection: Connection, _logger: Logger) => {
     if(!event?.body) {
         throwError(RESPONSE_CODES.BAD_REQUEST, event);
     }
-    const {count, ...product} = JSON.parse(event.body);
+    const {
+        count, ...product
+    } = JSON.parse(event.body);
     if(!count || !product) {
         throwError(RESPONSE_CODES.BAD_REQUEST, event);
     }
@@ -20,20 +27,21 @@ export const createProduct = async (event, _context, connection: Connection, _lo
     try{
         const productsRepo = connection.getRepository(Product);
         const newProductQuery = productsRepo
-        .createQueryBuilder()
-        .insert()
-        .into(Product)
-        .values(product)
-        .execute();
+            .createQueryBuilder()
+            .insert()
+            .into(Product)
+            .values(product)
+            .execute();
 
         const stockRepo = connection.getRepository(Stock);
         const newStockQuery = stockRepo.createQueryBuilder()
-        .insert()
-        .into(Stock)
-        .values({count})
-        .execute();
+            .insert()
+            .into(Stock)
+            .values({count})
+            .execute();
 
-        const [newProduct, newStock] = await Promise.all([
+        const [newProduct,
+            newStock] = await Promise.all([
             newProductQuery,
             newStockQuery,
         ]);

@@ -1,0 +1,117 @@
+{
+    "env": {
+        "browser": true,
+        "jest": true
+    },
+    "settings": {
+        "import/resolver": {
+            "typescript": {}
+        }
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true
+        },
+        "useJSXTextNode": false,
+        "sourceType": "module",
+        "project": "./tsconfig.json",
+        "tsconfigRootDir": "./"
+    },
+    "plugins": ["@typescript-eslint", "import"],
+    "rules": {
+        "object-curly-newline": ["error", {
+            "ObjectExpression": { "multiline": true, "minProperties": 2, "consistent": true },
+            "ObjectPattern": { "multiline": true, "minProperties": 2, "consistent": true },
+            "ImportDeclaration": { "multiline": true, "minProperties": 2, "consistent": true },
+            "ExportDeclaration": { "multiline": true, "minProperties": 2, "consistent": true }
+        }],
+        "array-element-newline": ["error", {
+            "ArrayExpression": "consistent",
+            "ArrayPattern": { "multiline": true, "minItems": 2 }
+        }],
+        "import/no-unresolved": "off",
+        "padding-line-between-statements":[ "error",{
+            "blankLine": "always",
+            "prev": "*",
+            "next": "return"
+        }],
+        "no-magic-numbers": ["error", { "ignore": [1], "ignoreArrayIndexes": true }],
+        "@typescript-eslint/member-delimiter-style": ["error", {
+            "multiline": {
+                "delimiter": "semi",
+                "requireLast": true
+            },
+            "singleline": {
+                "delimiter": "semi",
+                "requireLast": false
+            }
+        }],
+        "no-use-before-define": "off",
+        // "@typescript-eslint/naming-convention": ["error",
+        //     {
+        //     "selector": "default",
+        //     "format": ["camelCase"],
+        //     "leadingUnderscore": "allow",
+        //     "trailingUnderscore": "allow"
+        //     },
+        //     {
+        //         "selector": ["typeLike"],
+        //         "format": ["PascalCase"]
+        //     },
+        //     {
+        //         "selector": "enumMember",
+        //         "format": ["PascalCase", "UPPER_CASE", "camelCase"]
+        //     },
+        //     {
+        //         "selector": "memberLike",
+        //         "format": ["PascalCase", "camelCase"]
+        //     },
+        //     {
+        //         "selector": "parameter",
+        //         "format": ["PascalCase", "camelCase"]
+        //     },
+        //     {
+        //         "selector": "variable",
+        //         "types": ["boolean"],
+        //         "format": ["PascalCase"],
+        //         "prefix": ["is", "should", "has", "can", "did", "will"]
+        //     },
+        //     {
+        //         "selector": "function",
+        //         "format": ["camelCase", "PascalCase"],
+        //         "leadingUnderscore": "allow",
+        //         "trailingUnderscore": "allow"
+        //     },
+        //     {
+        //         "selector": "variable",
+        //         "format": ["camelCase", "UPPER_CASE", "PascalCase"],
+        //         "leadingUnderscore": "allow",
+        //         "trailingUnderscore": "allow"
+        //     }
+        // ],
+
+        "@typescript-eslint/no-unused-vars": 0,
+        "@typescript-eslint/type-annotation-spacing": ["error"],
+        "arrow-parens": ["error", "as-needed"],
+        "comma-dangle": ["error", "always-multiline"],
+        "import/extensions": "off",
+        "import/no-default-export": [2],
+        "import/no-extraneous-dependencies": ["off", {
+            "devDependencies": ["**/*.test.tsx", "**/*.test.ts", "**/*.stories.tsx"],
+            "peerDependencies": true
+        }],
+        "import/prefer-default-export": "off",
+        "indent": ["error", 4, {"SwitchCase": 1}],
+        "max-len": ["error", {"code":  120}],
+        "multiline-ternary": ["error", "always-multiline"],
+        "no-shadow": "off",
+        "no-unused-vars": "off",
+        "no-undef": "off",
+        "object-curly-spacing": ["error", "never"],
+        "operator-linebreak": ["error", "after", { "overrides": { "?": "before", ":": "before" } }]
+    }
+
+}

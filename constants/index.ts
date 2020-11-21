@@ -12,3 +12,17 @@ export const RESPONSE_MESSAGES = {
     [RESPONSE_CODES.BAD_REQUEST]: 'Bad request',
     [RESPONSE_CODES.SAVED]: 'Saved',
 }
+
+export const CORS = {
+    origins: '*',
+    headers: [
+        'Content-Type',
+        'X-Amz-Date',
+        'Authorization',
+        'X-Api-Key',
+        'X-Amz-Security-Token',
+        'X-Amz-User-Agent',
+        'Access-Control-Allow-Origin',
+        'Access-Control-Allow-Credentials',
+    ]
+};

@@ -1,1 +1,0 @@
-export const BUCKET = 'my-shop-files-for-parser'

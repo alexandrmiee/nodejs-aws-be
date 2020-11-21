@@ -1,2 +1,2 @@
 export const REGION = 'eu-west-1';
-export { BUCKET } from './bucketConfig';
+export const BUCKET = 'my-shop-files-for-parser'

@@ -1,6 +1,6 @@
-import { importProductsFile as importProductsFileHandler } from './importProductsFile';
-import { createHandlerWithLogger } from './handleFactory';
+import {createHandlerWithLogger} from '../../../../utils';
+import {importProductsFile as importProductsFileHandler} from './importProductsFile';
 
 export const importProductsFile = createHandlerWithLogger(importProductsFileHandler, 'importProductsFileLogger');
 
-export { importFileParser } from './importFileParser';
+export {importFileParser} from './importFileParser';
