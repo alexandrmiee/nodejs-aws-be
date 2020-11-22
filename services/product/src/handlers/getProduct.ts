@@ -9,7 +9,7 @@ import {
 } from '../../../../utils';
 import {RESPONSE_CODES} from '../../../../constants';
 
-export const getProduct = async (event: APIGatewayProxyEvent, _context, connection: Connection, _logger: Logger) => {
+export const getProduct = async (event: APIGatewayProxyEvent, connection: Connection, _logger: Logger) => {
     if(!event?.pathParameters?.id) {
         throwError(RESPONSE_CODES.NOT_FOUND)
     }

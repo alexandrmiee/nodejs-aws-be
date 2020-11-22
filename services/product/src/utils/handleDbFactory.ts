@@ -1,5 +1,5 @@
 import {
-    APIGatewayProxyEvent, APIGatewayProxyResult, Callback, Context,
+    APIGatewayProxyEvent, APIGatewayProxyResult, Callback, Context, SQSEvent,
 } from 'aws-lambda';
 import {
     Connection, createConnection,
@@ -16,8 +16,7 @@ import {
 const {NODE_ENV} = process.env;
 
 type HandlerFunction = (
-    event: APIGatewayProxyEvent,
-    context: Context,
+    event: APIGatewayProxyEvent|SQSEvent,
     connection: Connection,
     logger?: Logger
 ) => void | Promise<APIGatewayProxyResult>;
@@ -28,9 +27,13 @@ export const createHandlerWithLoggerWithDbConnection = (
 ) => {
     const logger = createLogger({name: handlerName});
 
-    return async (event: APIGatewayProxyEvent, context: Context, getConfig: Callback<APIGatewayProxyResult>) => {
+    return async (
+        event: APIGatewayProxyEvent|SQSEvent,
+        _context: Context,
+        getConfig: Callback<APIGatewayProxyResult>
+    ) => {
         logger.info({
-            event, context,
+            event,
         });
         let connection: Connection;
         try{
@@ -43,7 +46,7 @@ export const createHandlerWithLoggerWithDbConnection = (
 
             connection = await createConnection(config);
 
-            return await handler(event, context, connection, logger);
+            return await handler(event, connection, logger);
         } catch(error) {
             logger.error(error);
 

@@ -1,6 +1,11 @@
 import type {Serverless} from 'serverless/aws';
 
-import {CORS} from '../../constants';
+import {
+    CORS,
+    CATALOG_ITEMS_SQS,
+    CREATE_PRODUCT_SNS_TOPIC_SUCCESS,
+    CREATE_PRODUCT_SNS_TOPIC_ERROR,
+} from '../../constants';
 import {ENVIRONMENT} from './enviroment';
 
 const serverlessConfiguration: Serverless = {
@@ -29,7 +34,68 @@ const serverlessConfiguration: Serverless = {
         apiGateway: {
             minimumCompressionSize: 1024,
         },
-        environment: ENVIRONMENT,
+        environment: {
+            ...ENVIRONMENT,
+            SNS_TOPIC_SUCCESS_ARN: {Ref: 'SNSTopicSuccess'},
+            SNS_TOPIC_ERROR_ARN: {Ref: 'SNSTopicError'},
+        },
+        iamRoleStatements: [
+            {
+                Effect: 'Allow',
+                Action: 'sns:*',
+                Resource: {Ref: 'SNSTopicSuccess'},
+            },
+        ],
+    },
+    resources: {
+        Resources: {
+            SQSQueue: {
+                Type: 'AWS::SQS::Queue',
+                Properties: {
+                    QueueName: CATALOG_ITEMS_SQS,
+                },
+            },
+            SNSTopicSuccess: {
+                Type: 'AWS::SNS::Topic',
+                Properties: {
+                    TopicName: CREATE_PRODUCT_SNS_TOPIC_SUCCESS,
+                },
+            },
+            SNSSubscriptionSuccess: {
+                Type: 'AWS::SNS::Subscription',
+                Properties: {
+                    Endpoint: 'diktator007@gmail.com',
+                    Protocol: 'email',
+                    TopicArn: {Ref: 'SNSTopicSuccess'},
+                },
+            },
+            SNSTopicError: {
+                Type: 'AWS::SNS::Topic',
+                Properties: {
+                    TopicName: CREATE_PRODUCT_SNS_TOPIC_ERROR,
+                },
+            },
+            SNSSubscriptionError: {
+                Type: 'AWS::SNS::Subscription',
+                Properties: {
+                    Endpoint: 'lukovnikov.alexandr@gmail.com',
+                    Protocol: 'email',
+                    TopicArn: {Ref: 'SNSTopicError'},
+                },
+            },
+        },
+        Outputs: {
+            SQSQueueURL: {
+                Description : "SQS CATALOG_ITEMS_SQS Queue URL",
+                Value : {Ref: 'SQSQueue'},
+                Export : {Name : {"Fn::Sub": "SQSQueue-SQSQueueURL"}},
+            },
+            SQSQueueARN: {
+                Description : "SQS CATALOG_ITEMS_SQS Queue URL",
+                Value : {'Fn::GetAtt':['SQSQueue', 'Arn']},
+                Export : {Name : {"Fn::Sub": "SQSQueue-SQSQueueARN"}},
+            },
+        },
     },
     functions: {
         getProducts: {
@@ -64,6 +130,19 @@ const serverlessConfiguration: Serverless = {
                         method: 'post',
                         path: 'product',
                         cors: CORS,
+                    },
+                },
+            ],
+        },
+        catalogBatchProcess: {
+            handler: './src/handlers/handlers.catalogBatchProcess',
+            events: [
+                {
+                    sqs: {
+                        batchSize: 5,
+                        arn: {
+                            'Fn::GetAtt':['SQSQueue', 'Arn'],
+                        },
                     },
                 },
             ],

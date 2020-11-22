@@ -7,10 +7,11 @@ export enum RESPONSE_CODES {
 }
 
 export const RESPONSE_MESSAGES = {
-    [RESPONSE_CODES.NOT_FOUND]: 'Not found',
-    [RESPONSE_CODES.SERVER_ERROR]: 'Server Error',
-    [RESPONSE_CODES.BAD_REQUEST]: 'Bad request',
+    [RESPONSE_CODES.SUCCESS]: 'Success',
     [RESPONSE_CODES.SAVED]: 'Saved',
+    [RESPONSE_CODES.NOT_FOUND]: 'Not found',
+    [RESPONSE_CODES.BAD_REQUEST]: 'Bad request',
+    [RESPONSE_CODES.SERVER_ERROR]: 'Server Error',
 }
 
 export const CORS = {
@@ -26,3 +27,5 @@ export const CORS = {
         'Access-Control-Allow-Credentials',
     ]
 };
+
+export * from './queues';
