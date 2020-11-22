@@ -1,3 +1,6 @@
+.idea/
+.vscode/
+.serverless/
 # package directories
 node_modules
 jspm_packages

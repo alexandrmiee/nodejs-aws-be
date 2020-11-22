@@ -8,7 +8,7 @@ import {
 } from '../../../../utils';
 import {RESPONSE_CODES} from '../../../../constants';
 
-export const getProducts = async (_event, _context, connection: Connection, _logger: Logger) => {
+export const getProducts = async (_event, connection: Connection, _logger: Logger) => {
     const productsRepo = connection.getRepository(Product);
 
     const productsWithStock: Product[] = await productsRepo

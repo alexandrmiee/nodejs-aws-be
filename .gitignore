@@ -1,6 +1,7 @@
 .idea/
 .vscode/
 .serverless/
+.cache/
 serverless.ts
 ormconfig.json
 node_modules/

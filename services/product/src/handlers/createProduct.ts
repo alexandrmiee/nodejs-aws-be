@@ -11,15 +11,9 @@ import {
 } from '../../../../utils';
 import {RESPONSE_CODES} from '../../../../constants';
 
-export const createProduct = async (event: APIGatewayProxyEvent, _context, connection: Connection, _logger: Logger) => {
-    if(!event?.body) {
-        throwError(RESPONSE_CODES.BAD_REQUEST, event);
-    }
-    const {
-        count, ...product
-    } = JSON.parse(event.body);
+export const createProductTransaction = async (product: Product, count: number, connection: Connection ) => {
     if(!count || !product) {
-        throwError(RESPONSE_CODES.BAD_REQUEST, event);
+        throwError(RESPONSE_CODES.BAD_REQUEST, 'product or count of products is undefined');
     }
 
     const queryRunner = connection.createQueryRunner();
@@ -51,6 +45,8 @@ export const createProduct = async (event: APIGatewayProxyEvent, _context, conne
             .relation(Product, 'stock')
             .of(newProduct?.identifiers[0])
             .set(newStock?.identifiers[0]);
+
+        return newProduct.identifiers[0];
     } catch (error) {
         await queryRunner.rollbackTransaction();
         throwError(RESPONSE_CODES.BAD_REQUEST, error?.message);
@@ -59,6 +55,16 @@ export const createProduct = async (event: APIGatewayProxyEvent, _context, conne
         // you need to release query runner which is manually created:
         await queryRunner.release();
     }
+}
+export const createProduct = async (event: APIGatewayProxyEvent, connection: Connection, _logger: Logger) => {
+    if(!event?.body) {
+        throwError(RESPONSE_CODES.BAD_REQUEST, JSON.stringify(event));
+    }
+    const {
+        count, ...product
+    } = JSON.parse(event.body);
+
+    await createProductTransaction(product, count, connection);
 
     return createResponse(RESPONSE_CODES.SAVED);
 }
